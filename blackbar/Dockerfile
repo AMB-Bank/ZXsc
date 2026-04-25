@@ -1,12 +1,9 @@
-FROM python:3.10-slim
+FROM python:3.11
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir flask gunicorn
+COPY . .
 
-COPY app/ ./app/
-COPY run.py .
+RUN pip install -r requirements.txt
 
-EXPOSE 8000
-
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--timeout", "60", "run:app"]
+CMD ["python", "run.py"]
